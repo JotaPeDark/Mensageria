@@ -1,0 +1,28 @@
+
+Sistema de Mensageria com RabbitMQ e Express
+
+1. Configuração do Ambiente:
+- RabbitMQ: Utilize o Docker para iniciar uma instância do RabbitMQ.
+  Comando: 
+  docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+- Acesse o painel de controle em http://localhost:15672 (usuário padrão: guest, senha: guest).
+
+2. Estrutura do Projeto:
+- Utilizado o framework Express para gerenciar a aplicação com rotas e middleware.
+- O sistema contém dois componentes principais:
+  a. Produtor: Envia mensagens para uma fila.
+  b. Consumidor: Recebe e processa as mensagens da fila.
+
+3. Componentes Principais:
+- Produtor (produtor.js):
+  - A função `enviarTarefa` recebe uma mensagem e envia para a fila RabbitMQ.
+
+- Consumidor (consumidor.js):
+  - A função `iniciarConsumidor` escuta a fila e processa cada mensagem
+
+4. Servidor Express (server.js):
+- A rota POST `/enviar` permite enviar tarefas, com o corpo da requisição.
+- Após enviar, a tarefa é confirmada e enviada para a fila RabbitMQ.
+
+Resumo:
+Este sistema é flexível e permite a comunicação entre componentes de forma assíncrona. O RabbitMQ atua como o "broker" das mensagens, garantindo que os consumidores possam processar as tarefas enviadas pelos produtores de maneira independente.
